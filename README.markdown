@@ -49,7 +49,9 @@ map:
 
 Now you have a tunnel to myserver:22 from localhost:2222. Test your access with `ssh -p 2222 root@localhost`.
 
-See more examples in [Syntax Example](#syntax-example) section.
+See more examples in [Examples](#examples) section.
+
+# Documentation
 
 ### Syntax Definition
 
@@ -80,7 +82,7 @@ mount:
     mkdir: BOOL                # (Optional) Whether to create the mount point if does not exist, default to false
 ```
 
-### Syntax Example
+## Examples
 
 * Node Definition
 
