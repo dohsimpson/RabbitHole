@@ -1,35 +1,33 @@
-#RabbitHole
+# RabbitHole
 
 ![rabbit](https://raw.githubusercontent.com/dohsimpson/rabbithole/master/alice.jpg)
 
 > Alice started to her feet, for it flashed across her mind that she had never before seen a rabbit with either a waistcoat-pocket, or a watch to take out of it, and burning with curiosity, she ran across the field after it, and was just in time to see it pop down a large rabbit-hole under the hedge.
 
-* YAML defined SSH Tunnel, SOCKS5 Proxy and SSHFS Mount
-
 ## Who is this for?
 
-For anyone who uses SSH Tunnel (forward and reverse), HTTP/HTTPS proxy, or need a remote directory mounted via SSH.
+For anyone who uses SSH Tunnel (forward and reverse), HTTP/HTTPS proxy, or needs a remote directory mounted via SSH.
 
 ## Features
 
-* A simpler way to think about SSH tunnel
+* A simple way to think about SSH tunnels
 * Simple YAML syntax to define SSH tunnels
-* Support Both Forward and Reverse tunnel
+* Support Both Forward and Reverse tunnels
 * Support key based and password authentication
-* Support defining SSH-based SOCKS5 Proxy
-* Support mounting remotely SSH
-* Everything is persistent. Broken connection is automatically recovered
+* Support defining SSH-based Proxy
+* Support mounting SSH directories
+* Persistent tunnels. Broken connections are automatically recovered
 
 ## Installation
 
-* Install python YAML parser: `pip install pyyaml`
+* Install python YAML library: `pip install pyyaml`
 * `git clone https://github.com/dohsimpson/RabbitHole`
 * (Optional) To use password authentication feature, install [`sshpass`](https://linux.die.net/man/1/sshpass)
 * (Optional) To use SSHFS mount feature, install [`sshfs`](https://github.com/libfuse/sshfs)
 
 ## Quick Start
 
-Create a file `rabbithole.yaml` under your cloned directory, and paste in the following snippet, replacing HOSTNAME with the ip or hostname of an SSH server, change other attributes accordingly:
+1. Create a file `rabbithole.yaml` under your cloned directory, and paste in the following snippet, replacing HOSTNAME with the ip or hostname of an SSH server, change other attributes accordingly:
 
 ```yaml
 node:
@@ -47,11 +45,11 @@ map:
     to: myserver:22
 ```
 
-Run command `python rabbithole.py`.
+2. Run command `python rabbithole.py`.
 
-Now you have a tunnel to myserver:22 from localhost:2222. `ssh -p 2222 root@localhost`
+Now you have a tunnel to myserver:22 from localhost:2222. Test your access with `ssh -p 2222 root@localhost`.
 
-See more examples in **Syntax Example** section
+See more examples in [Syntax Example](#syntax-example) section.
 
 ### Syntax Definition
 
@@ -144,6 +142,8 @@ proxy:
   - from: 9001
     to: us_server
     # default bind to localhost
+
+# Test the proxy: `export http_proxy=socks5://localhost:9000/ https_proxy=socks5://localhost:9000/; curl https://ipinfo.io`
 ```
 
 * SSHFS Mount
@@ -165,6 +165,6 @@ mount:
 
 ## Bugs or Feature requests
 
-Finding bugs and fix them, that's how robust software evolves. I need your help to make this software better for everyone.
+Finding bugs and fix them, that is how software evolves. I need your help to make this software better for everyone. Feel free to open an issue or pull request and I will review it and respond.
 
-A good software should be intuitive. I consider anything that is unintuitive about RabbitHole to be a bug. Feel free to open an issue or pull request and I will review it and respond.
+A good software should be intuitive. I consider anything that is unintuitive about RabbitHole to be a bug too.
