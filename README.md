@@ -20,8 +20,7 @@ For anyone who uses SSH Tunnel (forward and reverse), HTTP/HTTPS proxy, or needs
 
 ## Installation
 
-* Install python YAML library: `pip install pyyaml`
-* `git clone https://github.com/dohsimpson/RabbitHole`
+* `pip install RabbitHole-SSH`
 * (Optional) To use password authentication feature, install [`sshpass`](https://linux.die.net/man/1/sshpass)
 * (Optional) To use SSHFS mount feature, install [`sshfs`](https://github.com/libfuse/sshfs)
 

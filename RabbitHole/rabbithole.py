@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import yaml
 from subprocess import Popen, PIPE
 import time
@@ -14,7 +17,7 @@ LOCALHOST="127.0.0.1"
 BINDALL="0.0.0.0"
 DEVNULL = open(os.devnull, 'wb')
 
-FILES = ["rabbithole.yaml", "~/rabbithole.yaml", "/etc/rabbithole.yaml"]
+FILES = ["./rabbithole.yaml", "~/rabbithole.yaml", "/etc/rabbithole.yaml"]
 
 def parse_node_pair(s, node=False, port=False, path=False):
     """
@@ -413,6 +416,7 @@ class Mount(SSHCommand):
         return x
 
     def run(self):
+        from_node, from_path = parse_node_pair(self.from_, path=True)
         if self.mkdir:
             shell("mkdir -p {}".format(from_path))
         return super(Mount, self).run()
@@ -424,6 +428,7 @@ class Mount(SSHCommand):
         return "Mount '%s -> %s'" % (self.from_, self.to)
 
 def main():
+    d = None
     for f in FILES:
         try:
             with open(f, "rb") as f:
@@ -431,6 +436,9 @@ def main():
                 break
         except EnvironmentError as e:
             continue
+
+    if not d:
+        raise Exception("Couldn't read config file, please make sure one of these files exists: {}".format(", ".join(FILES)))
 
     ks = set(['node', 'map', 'proxy', 'mount'])
     ys = set(d.keys())
