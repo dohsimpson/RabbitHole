@@ -26,7 +26,7 @@ For anyone who uses SSH Tunnel (forward and reverse), HTTP/HTTPS proxy, or needs
 
 ## Quick Start
 
-1. Create a file `rabbithole.yaml` under your cloned directory, and paste in the following snippet, replacing HOSTNAME with the ip or hostname of an SSH server, change other attributes accordingly:
+1. Create a file `rabbithole.yaml` under your current directory, and paste in the following snippet, replacing HOSTNAME with the ip or hostname of an SSH server, change other attributes accordingly:
 
 ```yaml
 node:
@@ -44,7 +44,7 @@ map:
     to: myserver:22
 ```
 
-2. Run command `python rabbithole.py`.
+2. Run command `rabbithole`.
 
 Now you have a tunnel to myserver:22 from localhost:2222. Test your access with `ssh -p 2222 root@localhost`.
 
@@ -80,6 +80,10 @@ mount:
     to: NODE_NAME:PATH         # This is the exit of the SSHFS mount, PATH default to home directory if omitted, NODE_NAME is required
     mkdir: BOOL                # (Optional) Whether to create the mount point if does not exist, default to false
 ```
+
+### Configuration File
+
+The YAML configuration file for RabbitHole need to be placed under current directory, `~/rabbithole.yaml`, or `/etc/rabbithole.yaml`. Files are tried in that order and the first one is used.
 
 ## Examples
 
@@ -162,6 +166,8 @@ mount:
 ## TODO
 
 * Add support for forward tunnel through an intermediate host
+* Add init script to run at startup
+* Add verbose mode to print useful debug messages
 * Anything else that makes sense ;)
 
 ## Bugs or Feature requests
