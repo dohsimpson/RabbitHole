@@ -75,6 +75,8 @@ def parse_node_pair(s, node=False, port=False, path=False):
             raise Exception("Path part is needed in {}".format(s))
         b = ""
     a = Node.get_instance(a)
+    if b and type(b) is str:
+        b = get_path(b)
     return a, b
 
 def parse_ssh_option(s):
@@ -111,6 +113,11 @@ def parse_bind(bind_addr):
     else:
         return str(bind_addr)
 
+def get_path(s):
+    if s:
+        return os.path.expanduser(s)
+    else:
+        return ""
 
 def shell(s):
     print(s)
@@ -273,8 +280,8 @@ class Node(FromYaml):
         if self.key:
             self.ssh_options.append('IdentityFile={}'.format(self.key))
         if self.keepalive:
-            self.ssh_options.append('ServerAliveInterval=10')
-            # self.ssh_options.append('ServerAliveCountMax=3')  # 3 is the default value
+            self.ssh_options.append('ServerAliveInterval=5')
+            self.ssh_options.append('ServerAliveCountMax=2')
         self.ssh_options.append('ExitOnForwardFailure=yes')
 
     def __repr__(self):
@@ -429,9 +436,10 @@ class Mount(SSHCommand):
 
 def main():
     d = None
-    for f in FILES:
+    for fp in FILES:
         try:
-            with open(f, "rb") as f:
+            fp = get_path(fp)
+            with open(fp, "rb") as f:
                 d = yaml.load(f)
                 break
         except EnvironmentError as e:
